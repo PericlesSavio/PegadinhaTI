@@ -1,7 +1,7 @@
 import requests, json, time
 from funcoes import abrir_pagina, atualizar_item
 from playsound import playsound
-
+#pyinstaller --onefile main.py
 
 while True:
 	url = "https://pegadinha-ti.vercel.app/pegadinha"
