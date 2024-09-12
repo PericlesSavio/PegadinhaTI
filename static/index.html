@@ -14,6 +14,22 @@
             margin-top: 20px;
             margin-left: 30px;
         }
+        #status {
+            margin: 20px;
+        }
+
+        body, html {
+            margin: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center; /* Centraliza horizontalmente */
+            /*align-items: center; */
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin: 20px;
+        }
     </style>
     <script>
         async function setPegadinhas() {
@@ -42,31 +58,62 @@
                 }
 
                 const result = await response.json();
-                document.getElementById('status').innerText = `Itens atualizadas: ${JSON.stringify(result)}`;
+                document.getElementById('status').innerText = `Itens atualizados: ${JSON.stringify(result)}`;
             } catch (error) {
                 document.getElementById('status').innerText = `Erro: ${error.message}`;
             }
         }
+
+        async function showStatus() {
+            try {
+                const response = await fetch('./pegadinha', {
+                    method: 'GET', // Usando GET para obter o status atual
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                document.getElementById('status').innerText = `${JSON.stringify(result)}`;
+            } catch (error) {
+                document.getElementById('status').innerText = `Erro: ${error.message}`;
+            }
+        }
+
+        function startAutoRefresh() {
+            showStatus(); // Atualiza imediatamente
+            setInterval(showStatus, 3000); // Atualiza a cada 3 segundos
+        }
+
+        window.onload = startAutoRefresh
+
+        // window.onload = showStatus; // Chama showStatus ao carregar a página
     </script>    
 </head>
 <body>
-    <label>
-        Item 1:
-        <input type="checkbox" class="checkbox" id="item1">
-    </label><br>
-    <label>
-        Item 2:
-        <input type="checkbox" class="checkbox" id="item2">
-    </label><br>
-    <label>
-        Item 3:
-        <input type="checkbox" class="checkbox" id="item3">
-    </label><br>
-    <label>
-        Item 4:
-        <input type="checkbox" class="checkbox" id="item4">
-    </label><br>
-    <button class="botao" onclick="setPegadinhas()">Atualizar</button>
-    <div id="status"></div>
+    <div class="container">
+        <label>
+            Item 1:
+            <input type="checkbox" class="checkbox" id="item1">
+        </label><br>
+        <label>
+            Item 2:
+            <input type="checkbox" class="checkbox" id="item2">
+        </label><br>
+        <label>
+            Item 3:
+            <input type="checkbox" class="checkbox" id="item3">
+        </label><br>
+        <label>
+            Item 4:
+            <input type="checkbox" class="checkbox" id="item4">
+        </label><br>
+        <button class="botao" onclick="setPegadinhas()">Atualizar</button>
+        <div id="status"></div>
+    </div>
 </body>
 </html>

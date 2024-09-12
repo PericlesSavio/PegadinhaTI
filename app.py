@@ -20,11 +20,12 @@ def get_pegadinhas():
 def set_pegadinha():
     global pegadinhas
     data = request.get_json()
-    if all(key in data and isinstance(data[key], bool) for key in pegadinhas):
+    
+    if all(key in pegadinhas for key in data):
         pegadinhas.update(data)
         return jsonify(pegadinhas), 200
     else:
-        return jsonify({'error': 'Todos os campos devem ser true ou false'}), 400
+        return jsonify({'error': 'Chaves não permitidas no payload'}), 400
 
 @app.route('/')
 def index():
