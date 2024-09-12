@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alterar Pegadinha</title>
+    <title>Dashboard Pegadinha</title>
+    <style>
+        .checkbox {
+            transform: scale(3);
+            margin: 20px;
+        }
+        .botao {
+            transform: scale(2);
+            margin-top: 20px;
+            margin-left: 30px;
+        }
+    </style>
     <script>
         async function setPegadinhas() {
             // Coletar os valores dos campos
-            const pegadinha1 = document.getElementById('pegadinha1').checked;
-            const pegadinha2 = document.getElementById('pegadinha2').checked;
-            const pegadinha3 = document.getElementById('pegadinha3').checked;
-            const pegadinha4 = document.getElementById('pegadinha4').checked;
+            const item1 = document.getElementById('item1').checked;
+            const item2 = document.getElementById('item2').checked;
+            const item3 = document.getElementById('item3').checked;
+            const item4 = document.getElementById('item4').checked;
 
             try {
                 const response = await fetch('./pegadinha', {
@@ -19,10 +30,10 @@
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        pegadinha1: pegadinha1,
-                        pegadinha2: pegadinha2,
-                        pegadinha3: pegadinha3,
-                        pegadinha4: pegadinha4
+                        item1: item1,
+                        item2: item2,
+                        item3: item3,
+                        item4: item4
                     })
                 });
 
@@ -31,32 +42,31 @@
                 }
 
                 const result = await response.json();
-                document.getElementById('status').innerText = `Pegadinhas atualizadas: ${JSON.stringify(result)}`;
+                document.getElementById('status').innerText = `Itens atualizadas: ${JSON.stringify(result)}`;
             } catch (error) {
                 document.getElementById('status').innerText = `Erro: ${error.message}`;
             }
         }
-    </script>
+    </script>    
 </head>
 <body>
-    <h1>Alterar Pegadinha</h1>
     <label>
-        Pegadinha 1:
-        <input type="checkbox" id="pegadinha1">
+        Item 1:
+        <input type="checkbox" class="checkbox" id="item1">
     </label><br>
     <label>
-        Pegadinha 2:
-        <input type="checkbox" id="pegadinha2">
+        Item 2:
+        <input type="checkbox" class="checkbox" id="item2">
     </label><br>
     <label>
-        Pegadinha 3:
-        <input type="checkbox" id="pegadinha3">
+        Item 3:
+        <input type="checkbox" class="checkbox" id="item3">
     </label><br>
     <label>
-        Pegadinha 4:
-        <input type="checkbox" id="pegadinha4">
+        Item 4:
+        <input type="checkbox" class="checkbox" id="item4">
     </label><br>
-    <button onclick="setPegadinhas()">Atualizar Pegadinhas</button>
+    <button class="botao" onclick="setPegadinhas()">Atualizar</button>
     <div id="status"></div>
 </body>
 </html>

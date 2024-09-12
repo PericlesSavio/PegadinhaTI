@@ -6,10 +6,10 @@ app = Flask(__name__)
 CORS(app)
 
 pegadinhas = {
-    'pegadinha1': False,
-    'pegadinha2': False,
-    'pegadinha3': False,
-    'pegadinha4': False
+    'item1': False,
+    'item2': False,
+    'item3': False,
+    'item4': False
 }
 
 @app.route('/pegadinha', methods=['GET'])
