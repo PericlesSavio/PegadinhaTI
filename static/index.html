@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar Pegadinha</title>
+    <script>
+        async function setPegadinhas() {
+            // Coletar os valores dos campos
+            const pegadinha1 = document.getElementById('pegadinha1').checked;
+            const pegadinha2 = document.getElementById('pegadinha2').checked;
+            const pegadinha3 = document.getElementById('pegadinha3').checked;
+            const pegadinha4 = document.getElementById('pegadinha4').checked;
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/pegadinha', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        pegadinha1: pegadinha1,
+                        pegadinha2: pegadinha2,
+                        pegadinha3: pegadinha3,
+                        pegadinha4: pegadinha4
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                document.getElementById('status').innerText = `Pegadinhas atualizadas: ${JSON.stringify(result)}`;
+            } catch (error) {
+                document.getElementById('status').innerText = `Erro: ${error.message}`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Alterar Pegadinha</h1>
+    <label>
+        Pegadinha 1:
+        <input type="checkbox" id="pegadinha1">
+    </label><br>
+    <label>
+        Pegadinha 2:
+        <input type="checkbox" id="pegadinha2">
+    </label><br>
+    <label>
+        Pegadinha 3:
+        <input type="checkbox" id="pegadinha3">
+    </label><br>
+    <label>
+        Pegadinha 4:
+        <input type="checkbox" id="pegadinha4">
+    </label><br>
+    <button onclick="setPegadinhas()">Atualizar Pegadinhas</button>
+    <div id="status"></div>
+</body>
+</html>
