@@ -1,1 +1,5 @@
 _antigo
+__pycache__
+build
+dist
+pegadinha.spec
